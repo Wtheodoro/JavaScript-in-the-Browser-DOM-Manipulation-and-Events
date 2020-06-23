@@ -13,8 +13,8 @@ score = [0,0]
 roundScore = 0
 activePlayer = 0
 
+// Defaut
 document.querySelector('.dice').style.display = 'none'
-
 document.getElementById('score-0').textContent = '0'
 document.getElementById('score-1').textContent = '0'
 document.getElementById('current-0').textContent = '0'
@@ -30,6 +30,28 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     diceDOM.src = 'image/dice-' + dice + '.png'
 
     //3. Update the round score IF the rolled number was NOT a 1
+    if (dice !== 1) {
+        // add score
+        roundScore += dice
+        document.querySelector('#current-' + activePlayer).textContent = roundScore
+    } else {
+        //Nex player
+        /* if is is 0 than active player should be 1 else activeplayer should be 0
+        same as: if(activePlayer ===0){
+            activePlayer = 1
+        } else {
+            activePlayer = 0
+        }
+        */
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0
+        roundScore = 0
+        document.getElementById('current-0').textContent = '0'
+        document.getElementById('current-1').textContent = '0'
+        //.toggle is add if is not there and if is there remove it.
+        document.querySelector('.player-0-panel').classList.toggle('active')
+        document.querySelector('.player-1-panel').classList.toggle('active')
+        //document.querySelector('.dice').style.display = 'none'
+    }
 })
 
 
@@ -41,4 +63,4 @@ between 0 and 1 and plus 1 is for never giva a 0 number on random. Im thinking i
 
 //document.querySelector('#current-0').textContent = dice
 //document.querySelector('#current-' + activePlayer).textContent = dice
-document.querySelector('.dice').style.display = 'none'
+
