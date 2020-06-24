@@ -7,7 +7,7 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 */
 
-var scores, roundScore, activePlayer, dice, gamePlaying
+var scores, roundScore, activePlayer, dice, gamePlaying, prevDice
 
 init()
 
@@ -21,16 +21,24 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
         var diceDOM = document.querySelector('.dice')
         diceDOM.style.display = 'block'
         diceDOM.src = 'image/dice-' + dice + '.png'
-
-        //3. Update the round score IF the rolled number was NOT a 1
-        if (dice !== 1) {
+        //2.1 Two 6 in a roll
+        if (dice === 6 && prevDice ===6) {
+            scores[activePlayer] = 0
+            document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer]
+            nextPlayer()            
+            //3. Update the round score IF the rolled number was NOT a 1
+        } else if (dice !== 1) {
             // add score
             roundScore += dice
             document.querySelector('#current-' + activePlayer).textContent = roundScore
         } else {
             nextPlayer()
         }  
+
+        
     }
+
+    prevDice = dice
     
 })
 
